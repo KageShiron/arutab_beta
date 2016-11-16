@@ -1,0 +1,30 @@
+.thumb{
+  border:1px solid #999;
+  display:block;
+  clear:both;
+  background:#FFF;
+}
+.header{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  line-height:15px;
+  display:inline-block;
+  color:#DDD;
+  width:100%;
+}
+
+.favicon{
+   height:32px;
+   width:32px;
+  vertical-align:middle;
+}
+
+.tab{
+  padding:10px;
+  width:300px;
+  height:300px;
+}
+body{
+  background:#666;
+}

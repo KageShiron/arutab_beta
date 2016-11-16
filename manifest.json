@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "arutab",
+  "version": "0",
+
+  "description": "",
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "<all_urls>"
+  ],
+  "background" : {
+      "scripts":["background.js"]
+  },
+  "web_accessible_resources" : [ "tablist.html" ]
+  
+  }

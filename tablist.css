@@ -3,7 +3,14 @@
   display:block;
   clear:both;
   background:#FFF;
+  width:120%;
 }
+
+.thumbarea{
+    overflow:hidden;
+    height:300px;
+}
+
 .header{
   overflow:hidden;
   white-space:nowrap;
@@ -18,6 +25,7 @@
    width:32px;
   vertical-align:middle;
   float:left;
+
 }
 
 .tab{

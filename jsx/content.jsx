@@ -52,12 +52,3 @@ function popupTablist()
 }
 }
 new TouchPadGesture();
-chrome.runtime.onConnect.addListener(function(port) {
-  port.onMessage.addListener(
-    function(request) {
-        html2canvas(document.body,{ onrendered : (canv) => {
-          
-          port.postMessage({"data":canv.toDataURL()})}
-        });
-    });
-});

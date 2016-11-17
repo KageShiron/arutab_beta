@@ -32,16 +32,38 @@ constructor()
     </li>
     );
   }
-} 
+}
 
 class TabTailList extends React.Component{
+
+    initConnection(){
+        this.port = chrome.runtime.connect(null,{});
+        this.port.onMessage.addListener( (arg) => {
+            switch(arg.message)
+            {
+                case "getTabs" :
+                for( const l of this.getTabsListeners )l(arg.tabs);
+                this.getTabsListeners = []; 
+                break;
+            }
+
+        });
+        this.getTabsListeners = [];
+    }
+
+    getTabs( callback ){
+        this.port.postMessage( { "message" : "getTabs" } );
+        this.getTabsListeners.push(callback);
+    }
+
     constructor(){
         super();
         this.state = {
             tabs : [],
             captures : { }
         }
-        chrome.tabs.getAllInWindow(null , (tabs) =>
+        this.initConnection();
+        this.getTabs((tabs) =>
         {
          this.setState({tabs : tabs});
          for( const t of tabs)
@@ -67,5 +89,5 @@ class TabTailList extends React.Component{
 
 ReactDOM.render(
     <TabTailList />,
-  document.getElementById("tablist")
+    document.getElementById("tablist")
 );

@@ -27,7 +27,6 @@
   vertical-align:middle;
   float:left;
   margin-right:5px;
-
 }
 
 .tab{
@@ -41,8 +40,8 @@
 }
 
 .tab.size30{
-    width:30vw;
-    height:30vh;
+    width:33vw;
+    height:33vh;
 }
 .tab.size25{
     width:25vw;

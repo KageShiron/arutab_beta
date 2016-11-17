@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+const React = require("react");
+const ReactDOM = require("react-dom");
 class TouchPadGesture{
 constructor(){
 this.keyStatus  = {
@@ -52,3 +52,12 @@ function popupTablist()
 }
 }
 new TouchPadGesture();
+chrome.runtime.onConnect.addListener(function(port) {
+  port.onMessage.addListener(
+    function(request) {
+        html2canvas(document.body,{ onrendered : (canv) => {
+          
+          port.postMessage({"data":canv.toDataURL()})}
+        });
+    });
+});

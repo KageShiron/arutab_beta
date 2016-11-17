@@ -36,18 +36,30 @@ class TabTailList extends React.Component{
     constructor(){
         super();
         this.state = {
-            tabs : [0]
+            tabs : [],
+            captures : { }
         }
         chrome.tabs.getAllInWindow(null , (tabs) =>
         {
-         this.setState({tabs : tabs});
-         console.log(tabs);
+         this.setState({tabs : tabs});/*
+         for( const t of tabs)
+         {
+            let port = chrome.tabs.connect(t.id,null);
+            port.onMessage.addListener((msg) =>  {
+                var caps = this.state.captures;
+                caps[t.id] = msg.data;
+                console.log(msg);
+                this.setState({captures : caps});
+            });
+            port.postMessage( "GetCapture");
+         }*/
         }
          );
     }
 
     render() {
-        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb="" />)
+        console.log(this.state);
+        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.id+t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ "chrome://thumb2/" + t.url } />)
         return <ul>{list}</ul>
     }
 }

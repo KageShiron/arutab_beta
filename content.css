@@ -1,0 +1,12 @@
+iframe#arutab-insert-iframe{
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    border: none;
+    opacity: 0.9;
+    box-sizing: border-box;
+    z-index:999999;
+}

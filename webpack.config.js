@@ -1,7 +1,10 @@
 module.exports = {
-  entry: './jsx/content.jsx', // エントリポイントのjsxファイル
+  entry: {
+      content : './jsx/content.jsx',
+      tablist : './jsx/tablist.jsx'
+  },
   output: {
-    filename: './js/content.js' // 出力するファイル
+    filename: './js/[name].js' // 出力するファイル
   },
   module: {
     loaders: [{

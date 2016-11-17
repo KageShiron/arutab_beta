@@ -13,12 +13,10 @@ constructor()
   }
 }
 
-  componentDidMount(){
-  }
-  
   render() {
+    const cname = "tab " + ( this.props.actived == "actived" ? "actived" : "") + " size" + this.props.size;
     return (
-    <li className="tab">
+    <li className={cname}>
         <div className="header">
             <img className="favicon" src={ this.props.favicon } />
             <div className="title_url">
@@ -80,12 +78,19 @@ class TabTailList extends React.Component{
          );
     }
 
+    calcSize(){
+        if( this.state.tabs.length <= 9)return 30;
+        if( this.state.tabs.length <= 16)return 25;
+        return 20;
+    }
+
     render() {
         console.log(this.state);
-        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.id+t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id] } />)
+        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.id+t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id] } actived={t.active ? "actived" : ""} size={this.calcSize()} />)
         return <ul>{list}</ul>
     }
 }
+
 
 ReactDOM.render(
     <TabTailList />,

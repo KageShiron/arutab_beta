@@ -15,7 +15,7 @@ document.addEventListener( "keydown" ,(e) => {
     setTimeout( () => {
       this.keyStatus.isShortCtrlKey = false
       console.log("shortTime");
-    } , 10);/*
+    } , 50);/*
     setTimeout( () => {
       this.keyStatus.isShortCtrlKey = false;
       this.keyStatus.ctrlKey = false;
@@ -35,9 +35,19 @@ document.addEventListener( "keyup" ,(e) => {
 }
 );
 window.addEventListener( "mousewheel",(e) => {
-  //  console.log(`wheel/${this.keyStatus.isTouchPad}/${e.ctrlKey}/${this.keyStatus.isShortCtrlKey}/${this.keyStatus.ctrlKey}`);
-  if( !this.keyStatus.isTouchPad && (!e.ctrlKey || !this.keyStatus.isShortCtrlKey) )return; //no zoom || real ctrl key is pushed by user
-  //console.log("touchpad!");
+  console.log(`wheel/${this.keyStatus.isTouchPad}/${e.ctrlKey}/${this.keyStatus.isShortCtrlKey}/${this.keyStatus.ctrlKey}`);
+  if( this.keyStatus.isTouchPad ) //タッチパッド検出時は常にprevent
+  {
+    e.preventDefault();
+    return;
+  } 
+  if( e.ctrlKey && !this.keyStatus.ctrlKey) //時々keydownがこずにズームしようとする
+  {
+    e.preventDefault();
+    return;
+  }
+  if( !e.ctrlKey || !this.keyStatus.isShortCtrlKey)return; //no zoom || real ctrl key is pushed by user
+  console.log("touchpad!");
   this.keyStatus.isTouchPad = true;
   e.preventDefault();
   if(jQuery("#arutab-insert-iframe").length != 0)return;
@@ -46,8 +56,9 @@ window.addEventListener( "mousewheel",(e) => {
 
 function popupTablist()
 {
-  //console.log("popup");
-  jQuery("<iframe>").attr("id","arutab-insert-iframe").attr("src", chrome.runtime.getURL("tablist.html") ).appendTo("body");
+  console.log("popup");
+  jQuery("<iframe>").attr("id","arutab-insert-iframe").attr("src", chrome.runtime.getURL("tablist.html") )
+  .on("load",(e) => {$(e.target).css("display","block") }).css("display","none").appendTo("body");;
 }
 }
 }

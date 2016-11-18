@@ -1,13 +1,15 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 
+window.addEventListener("mousewheel",(e) => {
+    e.preventDefault()
+});
 
 class TabTail extends React.Component {
 
 constructor()
 {
   super();
-  window.addEventListener("mousewheel",(e) => preventDefault());
   this.state = {
     ctrlKey : false
   }
@@ -86,7 +88,7 @@ class TabTailList extends React.Component{
 
     render() {
         console.log(this.state);
-        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.id+t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id] } actived={t.active ? "actived" : ""} size={this.calcSize()} />)
+        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id] } actived={t.active ? "actived" : ""} size={this.calcSize()} />)
         return <ul>{list}</ul>
     }
 }

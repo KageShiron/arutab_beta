@@ -21,6 +21,11 @@
   height:35px;
 }
 
+.title_url{
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
 .favicon{
    height:32px;
    width:32px;
@@ -57,8 +62,8 @@
 }
 
 .title{
-    font-size:18px;
-    line-height:18px;
+    font-size:17px;
+    line-height:17px;
 }
 .url{
     font-size:13px;

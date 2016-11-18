@@ -6,7 +6,11 @@ iframe#arutab-insert-iframe{
     top: 0;
     left: 0;
     border: none;
-    opacity: 0.9;
+    opacity: 0;
+    transition: opacity 10ms ease-in;
     box-sizing: border-box;
     z-index:999999;
+}
+iframe#arutab-insert-iframe.arutab-iframe-visible{
+    opacity:0.9
 }

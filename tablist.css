@@ -44,6 +44,12 @@
   padding:10px;
 }
 
+.tab:hover{
+    border:3px solid #999;
+    padding:7px;
+    background:#444;
+}
+
 .tab.size30{
     width:33vw;
     height:33vh;

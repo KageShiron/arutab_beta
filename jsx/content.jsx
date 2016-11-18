@@ -58,8 +58,16 @@ function popupTablist()
 {
   console.log("popup");
   jQuery("<iframe>").attr("id","arutab-insert-iframe").attr("src", chrome.runtime.getURL("tablist.html") )
-  .on("load",(e) => {$(e.target).css("display","block") }).css("display","none").appendTo("body");;
+  .on("load",(e) => {
+    $(e.target).css("display","block") ;
+    setTimeout( () => $(e.target).addClass("arutab-iframe-visible"),0);
+    console.log($(e.target).attr("src"));
+ }).css("display","none").appendTo("body");;
 }
 }
 }
 new TouchPadGesture();
+
+chrome.runtime.onMessage.addListener((msg) =>{
+  if(msg.message == "closeAruTab")jQuery("#arutab-insert-iframe").remove();
+});

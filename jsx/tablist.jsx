@@ -1,7 +1,7 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 
-window.addEventListener("mousewheel",(e) => {
+window.addEventListener("wheel",(e) => {
     e.preventDefault()
 });
 
@@ -18,7 +18,7 @@ constructor()
   render() {
     const cname = "tab " + ( this.props.actived == "actived" ? "actived" : "") + " size" + this.props.size;
     return (
-    <li className={cname}>
+    <li className={cname} onClick={ (e) => this.props.onClick(this.props.tabId)}>
         <div className="header">
             <img className="favicon" src={ this.props.favicon } />
             <div className="title_url">
@@ -88,8 +88,12 @@ class TabTailList extends React.Component{
 
     render() {
         console.log(this.state);
-        const list = this.state.tabs.map( (t) => <TabTail key={t.id} title={t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id] } actived={t.active ? "actived" : ""} size={this.calcSize()} />)
+        const list = this.state.tabs.map( (t) => <TabTail key={t.id} tabId={t.id} onClick={(e) => this.handleTabClick(e)} title={t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id] } actived={t.active ? "actived" : ""} size={this.calcSize()} />)
         return <ul>{list}</ul>
+    }
+
+    handleTabClick(tabId){
+        this.port.postMessage( {message:"requestTabChange",tabId:tabId});
     }
 }
 

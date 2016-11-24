@@ -89,12 +89,13 @@ class TabTailList extends React.Component {
     }
 
     handleTabClick(tabId) {
+        this.props.onRemoving();    // iframe change to invisible
         this.port.postMessage({ message: "requestTabChange", tabId: tabId });
     }
 }
 
 
-ReactDOM.render(
-    <TabTailList />,
+ReactDOM.render(   
+    <TabTailList onRemoving={ () => {document.body.backgroundColor="transparent";document.body.style.display="none";} } />,
     document.getElementById("tablist")
 );

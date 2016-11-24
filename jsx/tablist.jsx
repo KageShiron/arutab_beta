@@ -96,6 +96,6 @@ class TabTailList extends React.Component {
 
 
 ReactDOM.render(   
-    <TabTailList onRemoving={ () => {document.body.backgroundColor="transparent";document.body.style.display="none";} } />,
+    <TabTailList onRemoving={ () => {document.body.style.backgroundColor="transparent";document.body.style.display="none";} } />,
     document.getElementById("tablist")
 );

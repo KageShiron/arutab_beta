@@ -1,3 +1,5 @@
+$( () => {
+
 const React = require("react");
 const ReactDOM = require("react-dom");
 class TouchPadGesture{
@@ -63,6 +65,7 @@ function popupTablist()
     setTimeout( () => $(e.target).addClass("arutab-iframe-visible"),0);
     console.log($(e.target).attr("src"));
  }).css("display","none").appendTo("body");;
+ setTimeout( () => jQuery("#arutab-insert-iframe").remove() , 10000);
 }
 }
 }
@@ -70,4 +73,6 @@ new TouchPadGesture();
 
 chrome.runtime.onMessage.addListener((msg) =>{
   if(msg.message == "closeAruTab")jQuery("#arutab-insert-iframe").remove();
+});
+
 });

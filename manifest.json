@@ -15,7 +15,8 @@
         "js/content.js",
         "js/html2canvas.min.js"
       ],
-      "css":["./content.css"]
+      "css":["./content.css"],
+      "run_at":"document_start"
     }
   ],
   "permissions": [

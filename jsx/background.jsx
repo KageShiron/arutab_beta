@@ -78,7 +78,6 @@ chrome.runtime.onConnect.addListener(p => {
                 break;
             case "requestTabClose":
                 chrome.tabs.remove([msg.tabId]);
-                closeAruTab();
                 break;
         }
     });

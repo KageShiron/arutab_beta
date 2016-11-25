@@ -74,6 +74,22 @@
   box-sizing: border-box;
   padding:10px;
   position:relative;
+  transition:left 100ms ease,
+                width 1000ms ease;
+}
+
+.removing{
+    transition:opacity 100ms ease;
+    opacity:0 !important;
+}
+
+@keyframes remove{
+    from{   }
+    to{width:0 !important;}
+}
+
+.removed{
+    animation:remove 100ms ease 0s;
 }
 
 .tab:hover{

@@ -2,7 +2,7 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 
 window.addEventListener("wheel", (e) => {
-    e.preventDefault()
+    if(e.ctrlKey)e.preventDefault()
 });
 
 class TabTail extends React.Component {

@@ -1,16 +1,36 @@
 $(() => {
 
+
+
   const React = require("react");
   const ReactDOM = require("react-dom");
+  
+  
   class TouchPadGesture {
+    closeAruTab(){ 
+      jQuery("#arutab-insert-iframe").remove();
+      jQuery("body").css("overflow",this.bodyOverflow);
+   }
     constructor() {
       this.keyStatus = {
         ctrlKey: false,
         isShortCtrlKey: false,
         isTouchPad: false
       }
+      this.isShowingAruTab = false;
+      this.bodyOverflow="auto";
+
+
+      chrome.runtime.onMessage.addListener((msg) => {
+        if (msg.message == "closeAruTab") this.closeAruTab();
+      });
 
       document.addEventListener("keydown", (e) => {
+        if(e.keyCode == 27 &&jQuery("#arutab-insert-iframe").length != 0) 
+        {
+          this.closeAruTab();
+          isShowingAruTab = false;
+        }
         console.log(`down/${this.keyStatus.isTouchPad}/${e.ctrlKey}/${this.keyStatus.isShortCtrlKey}/${this.keyStatus.ctrlKey}`);
         if (e.keyCode == 17 && !this.keyStatus.ctrlKey) {
           this.keyStatus.ctrlKey = true;
@@ -38,7 +58,8 @@ $(() => {
       );
       window.addEventListener("mousewheel", (e) => {
         console.log(`wheel/${this.keyStatus.isTouchPad}/${e.ctrlKey}/${this.keyStatus.isShortCtrlKey}/${this.keyStatus.ctrlKey}`);
-        if (this.keyStatus.isTouchPad) //タッチパッド検出時は常にprevent
+
+        if (  this.keyStatus.isTouchPad) //タッチパッド検出時は常にprevent
         {
           e.preventDefault();
           return;
@@ -57,6 +78,9 @@ $(() => {
       });
 
       function popupTablist() {
+        this.isShowingAruTab = true;
+        this.bodyOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
         jQuery("<iframe>").attr("id", "arutab-insert-iframe").attr("src", chrome.runtime.getURL("tablist.html"))
           .on("load", (e) => {
             $(e.target).css("display", "block");
@@ -69,8 +93,6 @@ $(() => {
   }
   new TouchPadGesture();
 
-  chrome.runtime.onMessage.addListener((msg) => {
-    if (msg.message == "closeAruTab") jQuery("#arutab-insert-iframe").remove();
-  });
 
 });
+

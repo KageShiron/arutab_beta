@@ -25,6 +25,9 @@ class TabTail extends React.Component {
                         <span className="url">{ this.props.url }</span>
                     </div>
                 </div>
+                <div className="closebutton" onClick={ (e) => { e.stopPropagation(); this.props.onClose(this.props.tabId);}} >
+                        <img src="img/close.svg" />
+                </div>
                 <div className="thumbarea">
                     <img src={ this.props.thumb } className="thumb" />
                 </div>
@@ -84,8 +87,17 @@ class TabTailList extends React.Component {
 
     render() {
         console.log(this.state);
-        const list = this.state.tabs.map((t) => <TabTail key={t.id} tabId={t.id} onClick={(e) => this.handleTabClick(e) } title={t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} thumb={ this.state.captures[t.id]} actived={t.active ? "actived" : ""} size={this.calcSize() } />)
+        const list = this.state.tabs.map((t) =>
+         <TabTail key={t.id} tabId={t.id} onClick={(e) => this.handleTabClick(e) }
+            title={t.title} url={t.url} favicon={t.favIconUrl || "chrome://favicon/" + t.url} 
+            thumb={ this.state.captures[t.id]} actived={t.active ? "actived" : ""} size={this.calcSize() }
+            onClose={ (e) => this.handleCloseTab(e) }
+             />)
         return <ul>{list}</ul>
+    }
+
+    handleCloseTab(tabId){
+        this.port.postMessage({ message:"requestTabClose",tabId:tabId });
     }
 
     handleTabClick(tabId) {

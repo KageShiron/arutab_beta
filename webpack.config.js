@@ -1,7 +1,8 @@
 module.exports = {
   entry: {
       content : './jsx/content.jsx',
-      tablist : './jsx/tablist.jsx'
+      tablist : './jsx/tablist.jsx',
+      background : './jsx/background.jsx'
   },
   output: {
     filename: './js/[name].js' // 出力するファイル
